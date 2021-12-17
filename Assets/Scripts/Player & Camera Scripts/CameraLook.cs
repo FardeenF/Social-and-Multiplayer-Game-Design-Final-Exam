@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
-
-public class PivotCamera : MonoBehaviour
+public class CameraLook : MonoBehaviour
 {
     public new Camera camera;
+    public CinemachineFreeLook cam;
     FixedJoystick rotationJoystick;
-    public float speed = 3.0f;
+    public float xSpeed = 0.01f;
+    public float ySpeed = 1.0f;
     public GameObject player;
     bool dataSet = false;
 
@@ -16,17 +18,16 @@ public class PivotCamera : MonoBehaviour
         Application.targetFrameRate = 60;
     }
 
-    // Update is called once per frame
+
     void FixedUpdate()
     {
         if (dataSet)
         {
-            camera.transform.LookAt(transform);
-            float xRot = speed * -rotationJoystick.Vertical;
-            float yRot = speed * rotationJoystick.Horizontal;
+            float xRot = xSpeed * -rotationJoystick.Vertical;
+            float yRot = ySpeed * rotationJoystick.Horizontal;
 
-            transform.Rotate(xRot, yRot, 0.0f);
-            transform.position = player.transform.position;
+            cam.m_XAxis.Value += yRot;
+            cam.m_YAxis.Value += xRot;
         }
     }
 
@@ -45,5 +46,7 @@ public class PivotCamera : MonoBehaviour
     public void SetCameraPosition(GameObject playerPrefab)
     {
         player = playerPrefab;
+        cam.Follow = player.transform;
+        cam.LookAt = player.transform;
     }
 }

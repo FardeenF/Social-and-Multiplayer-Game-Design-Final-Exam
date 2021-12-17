@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
             if (joy.name == "Movement Joystick")
                 fixedJoystick = joy;
         }
-        camera = cameraParent.transform;
+        camera = cameraParent.transform.GetComponentInChildren<Camera>().gameObject.transform;
         dataSet = true;
     }
 }

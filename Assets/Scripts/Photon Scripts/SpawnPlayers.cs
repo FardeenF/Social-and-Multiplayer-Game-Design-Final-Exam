@@ -28,8 +28,8 @@ public class SpawnPlayers : MonoBehaviour
         if (player.GetComponentInChildren<PhotonView>().IsMine)
         {
             player.GetComponentInChildren<PlayerController>().SetData(camera);
-            camera.GetComponent<PivotCamera>().SetData(camera);
-            camera.GetComponent<PivotCamera>().SetCameraPosition(player.GetComponentInChildren<PlayerController>().gameObject);
+            camera.GetComponent<CameraLook>().SetData(camera);
+            camera.GetComponent<CameraLook>().SetCameraPosition(player.GetComponentInChildren<PlayerController>().gameObject);
             jumpButton.GetComponent<Button>().onClick.AddListener(player.GetComponentInChildren<PlayerController>().Jump);
         }
         
